@@ -14,6 +14,13 @@ jobs:
   build_and_push_docker_image:
     name: Push Docker image to ghcr
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - file: Dockerfile
+            image: ghcr.io/espressosystems/ubuntu-base
+          - file: nodejs.Dockerfile
+            image: ghcr.io/espressosystems/nodejs-base
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
@@ -31,12 +38,13 @@ jobs:
         uses: docker/metadata-action@v5
         id: metadata
         with:
-          images: ghcr.io/espressosystems/ubuntu-base
+          images: ${{ matrix.image }}
 
       - name: Build and push docker
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ${{ matrix.file }}
           push: ${{ github.event_name != 'pull_request'  }}
           tags: ${{ steps.metadata.outputs.tags  }}
           labels: ${{ steps.metadata.outputs.labels  }}
