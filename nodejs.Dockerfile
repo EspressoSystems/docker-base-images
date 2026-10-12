@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential tini curl libcurl4 nodejs npm libusb-1.0.0 \

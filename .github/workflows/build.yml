@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - ubuntu-26
   pull_request:
   workflow_dispatch:
   schedule:
@@ -13,7 +14,7 @@ on:
 jobs:
   build_and_push_docker_image:
     name: Push Docker image to ghcr
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         include:
