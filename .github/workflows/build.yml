@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - ubuntu-26
   pull_request:
   workflow_dispatch:
   schedule:
